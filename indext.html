@@ -1,0 +1,3377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Our Little Date 💗</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            min-height:100vh;
+
+            font-family:
+                "Trebuchet MS",
+                Arial,
+                sans-serif;
+
+            color:#741b46;
+
+            overflow-x:hidden;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(255,255,255,.95),
+                    transparent 24%
+                ),
+
+                radial-gradient(
+                    circle at 85% 10%,
+                    rgba(255,180,210,.45),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #fff4f8,
+                    #ffdce9,
+                    #fff7fb
+                );
+        }
+
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        #backgroundHearts{
+            position:fixed;
+            inset:0;
+
+            overflow:hidden;
+
+            pointer-events:none;
+
+            z-index:0;
+        }
+
+        .floating-heart{
+            position:absolute;
+
+            bottom:-60px;
+
+            opacity:.17;
+
+            color:#ff5e9c;
+
+            animation:
+                floatHeart linear infinite;
+        }
+
+        @keyframes floatHeart{
+
+            from{
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            to{
+                transform:
+                    translateY(-120vh)
+                    rotate(360deg);
+            }
+        }
+
+
+        /* =========================
+           SCREEN
+        ========================= */
+
+        .screen{
+            display:none;
+
+            min-height:100vh;
+
+            width:100%;
+
+            padding:24px;
+
+            position:relative;
+
+            z-index:2;
+
+            align-items:center;
+            justify-content:center;
+        }
+
+        .screen.active{
+            display:flex;
+
+            animation:
+                screenIn .6s ease both;
+        }
+
+        @keyframes screenIn{
+
+            from{
+                opacity:0;
+
+                transform:
+                    translateY(12px)
+                    scale(.98);
+            }
+
+            to{
+                opacity:1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =========================
+           MAIN CARD
+        ========================= */
+
+        .card{
+            width:min(
+                520px,
+                100%
+            );
+
+            padding:26px;
+
+            text-align:center;
+
+            border-radius:30px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .87
+                );
+
+            border:
+                2px solid
+                rgba(
+                    255,
+                    120,
+                    170,
+                    .24
+                );
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(
+                    204,
+                    54,
+                    117,
+                    .16
+                ),
+
+                inset 0 0 25px
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .75
+                );
+        }
+
+        .title{
+            color:#931d53;
+
+            font-size:31px;
+
+            margin-bottom:10px;
+        }
+
+        .subtitle{
+            color:#ad587c;
+
+            line-height:1.65;
+
+            margin-bottom:20px;
+        }
+
+
+        /* =========================
+           IMAGE ANIMATION
+        ========================= */
+
+        .animation-box{
+            position:relative;
+
+            width:100%;
+
+            aspect-ratio:16 / 10;
+
+            overflow:hidden;
+
+            border-radius:25px;
+
+            margin-bottom:20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff2f7,
+                    #ffdce9
+                );
+
+            box-shadow:
+                0 12px 28px
+                rgba(
+                    203,
+                    68,
+                    122,
+                    .13
+                );
+        }
+
+        .animation-box.portrait{
+            aspect-ratio:4 / 5;
+
+            max-height:420px;
+        }
+
+        .animation-box.wide{
+            aspect-ratio:16 / 7;
+        }
+
+        .frame-layer{
+            position:absolute;
+
+            inset:0;
+
+            width:100%;
+            height:100%;
+
+            object-fit:cover;
+
+            border-radius:25px;
+
+            opacity:0;
+
+            transform:
+                scale(1.015);
+
+            transition:
+                opacity .4s ease-in-out,
+                transform .65s ease-in-out;
+
+            will-change:
+                opacity,
+                transform;
+        }
+
+        .portrait .frame-layer{
+            object-fit:contain;
+        }
+
+        .frame-layer.visible{
+            opacity:1;
+
+            transform:
+                scale(1);
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        button{
+            font-family:inherit;
+
+            border:none;
+
+            outline:none;
+
+            cursor:pointer;
+        }
+
+        .primary-btn{
+            padding:
+                15px
+                35px;
+
+            border-radius:999px;
+
+            color:white;
+
+            font-size:18px;
+
+            font-weight:700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff78ad,
+                    #ed397d
+                );
+
+            box-shadow:
+                0 10px 25px
+                rgba(
+                    237,
+                    57,
+                    125,
+                    .28
+                );
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .primary-btn:hover{
+            transform:
+                translateY(-3px)
+                scale(1.015);
+
+            box-shadow:
+                0 15px 34px
+                rgba(
+                    237,
+                    57,
+                    125,
+                    .34
+                );
+        }
+
+        .button-row{
+            min-height:105px;
+
+            margin-top:20px;
+
+            display:flex;
+
+            justify-content:center;
+            align-items:center;
+
+            gap:20px;
+
+            position:relative;
+        }
+
+        .no-btn{
+            padding:
+                14px
+                34px;
+
+            border-radius:999px;
+
+            font-size:18px;
+
+            color:#851847;
+
+            background:white;
+
+            border:
+                2px solid
+                #ffa1c3;
+
+            transition:
+                opacity .4s ease,
+                transform .35s ease,
+                left .22s ease,
+                top .22s ease;
+        }
+
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress{
+            height:8px;
+
+            margin-top:22px;
+
+            border-radius:999px;
+
+            overflow:hidden;
+
+            background:#f6cad9;
+        }
+
+        .progress-bar{
+            width:0;
+
+            height:100%;
+
+            border-radius:999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff8bb7,
+                    #ed377c
+                );
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group{
+            margin:17px 0;
+
+            text-align:left;
+        }
+
+        .form-group label{
+            display:block;
+
+            margin-bottom:8px;
+
+            font-weight:700;
+        }
+
+        input{
+            width:100%;
+
+            padding:14px;
+
+            font-size:16px;
+
+            color:#67183d;
+
+            background:white;
+
+            outline:none;
+
+            border-radius:15px;
+
+            border:
+                1px solid
+                #efa9c4;
+
+            transition:.2s;
+        }
+
+        input:focus{
+            border-color:#ee4a85;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    238,
+                    74,
+                    133,
+                    .1
+                );
+        }
+
+        .time-row{
+            display:grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:12px;
+        }
+
+
+        /* =========================
+           OPTIONS
+        ========================= */
+
+        .options-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap:12px;
+
+            margin:18px 0;
+        }
+
+        .option-card{
+            position:relative;
+
+            padding:13px;
+
+            cursor:pointer;
+
+            background:white;
+
+            border-radius:19px;
+
+            border:
+                2px solid
+                transparent;
+
+            transition:
+                .25s ease;
+        }
+
+        .option-card:hover{
+            transform:
+                translateY(-3px);
+        }
+
+        .option-card.selected{
+            border-color:
+                #ee3e7e;
+
+            background:
+                #fff0f6;
+
+            box-shadow:
+                0 8px 22px
+                rgba(
+                    238,
+                    62,
+                    126,
+                    .13
+                );
+        }
+
+        .option-card.selected::after{
+            content:"✓";
+
+            position:absolute;
+
+            top:8px;
+            right:8px;
+
+            width:25px;
+            height:25px;
+
+            display:flex;
+
+            align-items:center;
+            justify-content:center;
+
+            color:white;
+
+            font-size:13px;
+
+            font-weight:bold;
+
+            background:#ed3e7d;
+
+            border-radius:50%;
+        }
+
+        .option-icon{
+            height:75px;
+
+            display:flex;
+
+            align-items:center;
+            justify-content:center;
+
+            font-size:48px;
+
+            margin-bottom:6px;
+        }
+
+        .option-name{
+            font-weight:700;
+        }
+
+        .selected-count{
+            margin-bottom:15px;
+
+            color:#a44f72;
+
+            font-weight:700;
+        }
+
+
+        /* =========================
+           FEE
+        ========================= */
+
+        .fee-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap:10px;
+
+            margin:20px 0;
+        }
+
+        .fee-option{
+            padding:
+                18px
+                6px;
+
+            cursor:pointer;
+
+            font-weight:700;
+
+            background:white;
+
+            border-radius:16px;
+
+            border:
+                2px solid
+                transparent;
+
+            transition:.25s;
+        }
+
+        .fee-option:hover{
+            transform:
+                translateY(-3px);
+        }
+
+        .fee-option.selected{
+            border-color:#ed3e7d;
+
+            background:#ffe9f2;
+        }
+
+        .fokinni-btn{
+            width:100%;
+
+            padding:16px;
+
+            margin-top:4px;
+
+            margin-bottom:15px;
+
+            font-size:19px;
+
+            font-weight:700;
+
+            color:#811845;
+
+            background:white;
+
+            border-radius:17px;
+
+            border:
+                2px solid
+                #ed4b84;
+
+            transition:.25s;
+        }
+
+        .fokinni-btn:hover{
+            transform:
+                scale(1.015);
+
+            background:
+                #fff1f6;
+        }
+
+
+        /* =========================
+           FINAL PANDA
+        ========================= */
+
+        .confirmation-mascot{
+            display:flex;
+
+            flex-direction:column;
+
+            align-items:center;
+
+            justify-content:center;
+
+            margin-bottom:5px;
+        }
+
+        .confirmation-panda{
+            width:130px;
+
+            height:130px;
+
+            object-fit:contain;
+
+            display:block;
+
+            animation:
+                pandaHappy
+                1.25s
+                ease-in-out
+                infinite;
+
+            filter:
+                drop-shadow(
+                    0 10px 12px
+                    rgba(
+                        231,
+                        62,
+                        127,
+                        .18
+                    )
+                );
+        }
+
+        .confirmation-yay{
+            margin-top:-7px;
+
+            font-size:32px;
+
+            color:#961e53;
+
+            margin-bottom:8px;
+        }
+
+        @keyframes pandaHappy{
+
+            0%,100%{
+                transform:
+                    translateY(0)
+                    rotate(-3deg)
+                    scale(1);
+            }
+
+            50%{
+                transform:
+                    translateY(-9px)
+                    rotate(3deg)
+                    scale(1.055);
+            }
+        }
+
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .result-box{
+            margin:20px 0;
+
+            padding:18px;
+
+            text-align:left;
+
+            line-height:2;
+
+            background:white;
+
+            border-radius:20px;
+        }
+
+        .result-row{
+            border-bottom:
+                1px dashed
+                #efbbd0;
+        }
+
+        .result-row:last-child{
+            border-bottom:none;
+        }
+
+
+        /* =========================
+           ENDING
+        ========================= */
+
+        .ending-title{
+            font-size:31px;
+
+            color:#c12b69;
+
+            margin-bottom:10px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(
+            max-width:600px
+        ){
+
+            .screen{
+                padding:12px;
+            }
+
+            .card{
+                padding:
+                    18px
+                    13px;
+
+                border-radius:24px;
+            }
+
+            .title{
+                font-size:26px;
+            }
+
+            .animation-box{
+                aspect-ratio:4 / 3;
+            }
+
+            .animation-box.wide{
+                aspect-ratio:16 / 10;
+            }
+
+            .animation-box.portrait{
+                aspect-ratio:4 / 5;
+            }
+
+            .time-row{
+                grid-template-columns:
+                    1fr;
+            }
+
+            .primary-btn,
+            .no-btn{
+                font-size:16px;
+
+                padding:
+                    13px
+                    26px;
+            }
+
+            .fee-grid{
+                gap:8px;
+            }
+
+            .confirmation-panda{
+                width:110px;
+
+                height:110px;
+            }
+
+            .confirmation-yay{
+                font-size:28px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div id="backgroundHearts"></div>
+
+
+
+<!-- =========================
+     SCREEN 1
+     INVITE
+========================= -->
+
+<section
+    class="screen active"
+    id="screen1"
+>
+
+<div class="card">
+
+
+    <div
+        class="animation-box"
+        id="inviteAnimation"
+    >
+
+        <img
+            class="frame-layer frame-a visible"
+            src="./invite1.png"
+            alt=""
+        >
+
+        <img
+            class="frame-layer frame-b"
+            src="./invite2.png"
+            alt=""
+        >
+
+    </div>
+
+
+    <h1 class="title">
+        Will you go on a date with me? 💕
+    </h1>
+
+
+    <p class="subtitle">
+
+        Just a little question...
+
+        <br>
+
+        but it means a lot to me 🥹
+
+    </p>
+
+
+    <div
+        class="button-row"
+        id="buttonArea"
+    >
+
+        <button
+            class="primary-btn"
+            onclick="acceptDate()"
+        >
+
+            ♥ Yes
+
+        </button>
+
+
+        <button
+            class="no-btn"
+            id="noButton"
+        >
+
+            No 💔
+
+        </button>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 2
+     HUG
+========================= -->
+
+<section
+    class="screen"
+    id="screen2"
+>
+
+<div class="card">
+
+
+    <div
+        class="animation-box"
+        id="hugAnimation"
+    >
+
+        <img
+            class="frame-layer frame-a visible"
+            src="./hug1.png"
+            alt=""
+        >
+
+        <img
+            class="frame-layer frame-b"
+            src="./hug2.png"
+            alt=""
+        >
+
+    </div>
+
+
+    <h1 class="title">
+        Finally! 🥹❤️
+    </h1>
+
+
+    <p class="subtitle">
+
+        You agreed to go on a date with me.
+
+        <br>
+
+        He got a little emotional... 💗
+
+    </p>
+
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="hugProgress"
+        ></div>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 3
+     DATE
+========================= -->
+
+<section
+    class="screen"
+    id="screen3"
+>
+
+<div class="card">
+
+
+    <h1 class="title">
+        💗 When shall we go?
+    </h1>
+
+
+    <p class="subtitle">
+        Choose a date and time that works for you.
+    </p>
+
+
+    <div class="form-group">
+
+        <label>
+            📅 Date
+        </label>
+
+        <input
+            type="date"
+            id="dateInput"
+        >
+
+    </div>
+
+
+    <div class="time-row">
+
+
+        <div class="form-group">
+
+            <label>
+                🕐 Start Time
+            </label>
+
+            <input
+                type="time"
+                id="startTime"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                🕐 End Time
+            </label>
+
+            <input
+                type="time"
+                id="endTime"
+            >
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="primary-btn"
+        style="width:100%;"
+        onclick="saveDateAndTime()"
+    >
+
+        Next →
+
+    </button>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 4
+     FOOD
+========================= -->
+
+<section
+    class="screen"
+    id="screen4"
+>
+
+<div class="card">
+
+
+    <h1 class="title">
+        🍹 What would you like?
+    </h1>
+
+
+    <p class="subtitle">
+        Maximum 2টা item select করতে পারবে 💕
+    </p>
+
+
+    <div class="options-grid">
+
+
+        <div
+            class="option-card food-option"
+            data-name="7 Up"
+        >
+
+            <div class="option-icon">
+                🥤
+            </div>
+
+            <div class="option-name">
+                7 Up
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card food-option"
+            data-name="Coca-Cola"
+        >
+
+            <div class="option-icon">
+                🥤
+            </div>
+
+            <div class="option-name">
+                Coca-Cola
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card food-option"
+            data-name="Cold Coffee"
+        >
+
+            <div class="option-icon">
+                ☕
+            </div>
+
+            <div class="option-name">
+                Cold Coffee
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card food-option"
+            data-name="Mint Lemon"
+        >
+
+            <div class="option-icon">
+                🍋
+            </div>
+
+            <div class="option-name">
+                Mint Lemon
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card food-option"
+            data-name="Badam"
+        >
+
+            <div class="option-icon">
+                🥜
+            </div>
+
+            <div class="option-name">
+                Badam
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card food-option"
+            data-name="Jhalmuri"
+        >
+
+            <div class="option-icon">
+                🍲
+            </div>
+
+            <div class="option-name">
+                Jhalmuri
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="selected-count">
+
+        Selected:
+
+        <span id="foodCount">
+            0
+        </span>
+
+        / 2
+
+    </div>
+
+
+    <button
+        class="primary-btn"
+        style="width:100%;"
+        onclick="saveFood()"
+    >
+
+        Next →
+
+    </button>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 5
+     PLACE
+========================= -->
+
+<section
+    class="screen"
+    id="screen5"
+>
+
+<div class="card">
+
+
+    <h1 class="title">
+        📍 Where shall we go?
+    </h1>
+
+
+    <p class="subtitle">
+        Pick one place for our date 💗
+    </p>
+
+
+    <div class="options-grid">
+
+
+        <div
+            class="option-card place-option"
+            data-name="Cafe"
+        >
+
+            <div class="option-icon">
+                ☕
+            </div>
+
+            <div class="option-name">
+                Cafe
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card place-option"
+            data-name="Restaurant"
+        >
+
+            <div class="option-icon">
+                🍽️
+            </div>
+
+            <div class="option-name">
+                Restaurant
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card place-option"
+            data-name="Park"
+        >
+
+            <div class="option-icon">
+                🌳
+            </div>
+
+            <div class="option-name">
+                Park
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card place-option"
+            data-name="Movie"
+        >
+
+            <div class="option-icon">
+                🎬
+            </div>
+
+            <div class="option-name">
+                Movie
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card place-option"
+            data-name="Rooftop"
+        >
+
+            <div class="option-icon">
+                🌆
+            </div>
+
+            <div class="option-name">
+                Rooftop
+            </div>
+
+        </div>
+
+
+        <div
+            class="option-card place-option"
+            data-name="Lakeside"
+        >
+
+            <div class="option-icon">
+                🌊
+            </div>
+
+            <div class="option-name">
+                Lakeside
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <button
+        class="primary-btn"
+        style="width:100%;"
+        onclick="savePlace()"
+    >
+
+        Next →
+
+    </button>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 6
+     FEE
+========================= -->
+
+<section
+    class="screen"
+    id="screen6"
+>
+
+<div class="card">
+
+
+    <h1 class="title">
+        💗 One tiny question... 🥹
+    </h1>
+
+
+    <p class="subtitle">
+
+        How much can you contribute
+
+        <br>
+
+        for our little date? ❤️
+
+    </p>
+
+
+    <div class="fee-grid">
+
+
+        <div
+            class="fee-option"
+            data-fee="৳50"
+        >
+            ৳50
+        </div>
+
+
+        <div
+            class="fee-option"
+            data-fee="৳100"
+        >
+            ৳100
+        </div>
+
+
+        <div
+            class="fee-option"
+            data-fee="৳200"
+        >
+            ৳200
+        </div>
+
+
+        <div
+            class="fee-option"
+            data-fee="৳300"
+        >
+            ৳300
+        </div>
+
+
+        <div
+            class="fee-option"
+            data-fee="৳500"
+        >
+            ৳500
+        </div>
+
+
+        <div
+            class="fee-option"
+            data-fee="Custom"
+        >
+            Custom
+        </div>
+
+
+    </div>
+
+
+    <div
+        id="customAmountBox"
+        style="
+            display:none;
+            margin-bottom:15px;
+        "
+    >
+
+        <input
+            type="number"
+            min="1"
+            id="customAmount"
+            placeholder="Enter custom amount ৳"
+        >
+
+    </div>
+
+
+    <button
+        class="fokinni-btn"
+        onclick="openHeartbreak()"
+    >
+
+        আমি ফকিন্নি 🥹
+
+    </button>
+
+
+    <button
+        class="primary-btn"
+        style="width:100%;"
+        onclick="saveFee()"
+    >
+
+        Continue →
+
+    </button>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 7
+     HEARTBREAK
+========================= -->
+
+<section
+    class="screen"
+    id="screen7"
+>
+
+<div class="card">
+
+
+    <div
+        class="animation-box portrait"
+        id="breakAnimation"
+    >
+
+        <img
+            class="frame-layer frame-a visible"
+            src="./break1.png"
+            alt=""
+        >
+
+        <img
+            class="frame-layer frame-b"
+            src="./break2.png"
+            alt=""
+        >
+
+    </div>
+
+
+    <h1 class="title">
+        Heartbreak 💔
+    </h1>
+
+
+    <p class="subtitle">
+
+        Oh... our date is cancelled.
+
+        <br>
+
+        Maybe try again 🥲
+
+    </p>
+
+
+    <button
+        class="primary-btn"
+        onclick="tryFeeAgain()"
+    >
+
+        Try Again ↻
+
+    </button>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 8
+     FINAL CONFIRMATION
+========================= -->
+
+<section
+    class="screen"
+    id="screen8"
+>
+
+<div class="card">
+
+
+    <div class="confirmation-mascot">
+
+
+        <img
+            src="./panda.png"
+            alt="Happy Panda"
+            class="confirmation-panda"
+        >
+
+
+        <h1 class="confirmation-yay">
+            Yay!
+        </h1>
+
+
+    </div>
+
+
+    <h2>
+        Our date is officially set! 💕
+    </h2>
+
+
+    <div class="result-box">
+
+
+        <div class="result-row">
+
+            📅 Date:
+
+            <strong id="resultDate"></strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            🕐 Time:
+
+            <strong id="resultTime"></strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            🍹 Food:
+
+            <strong id="resultFood"></strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            📍 Place:
+
+            <strong id="resultPlace"></strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            💰 Contribution:
+
+            <strong id="resultFee"></strong>
+
+        </div>
+
+
+    </div>
+
+
+    <p class="subtitle">
+
+        Everything is ready...
+
+        <br>
+
+        Just one last moment 💗
+
+    </p>
+
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="finalProgress"
+        ></div>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     SCREEN 9
+     KISS
+========================= -->
+
+<section
+    class="screen"
+    id="screen9"
+>
+
+<div class="card">
+
+
+    <div
+        class="animation-box wide"
+        id="kissAnimation"
+    >
+
+        <img
+            class="frame-layer frame-a visible"
+            src="./kiss1.png"
+            alt=""
+        >
+
+        <img
+            class="frame-layer frame-b"
+            src="./kiss2.png"
+            alt=""
+        >
+
+    </div>
+
+
+    <h1 class="ending-title">
+
+        Good things are better together 💕
+
+    </h1>
+
+
+    <p class="subtitle">
+
+        A small date.
+
+        <br>
+
+        A beautiful memory in the making ❤️
+
+    </p>
+
+
+</div>
+
+</section>
+
+
+
+<script>
+
+
+/* =========================
+   DATA
+========================= */
+
+const dateData = {
+
+    date:"",
+    start:"",
+    end:"",
+    foods:[],
+    place:"",
+    fee:""
+
+};
+
+
+
+/* =========================
+   IMAGE PRELOAD
+========================= */
+
+const imageFiles = [
+
+    "./panda.png",
+
+    "./invite1.png",
+    "./invite2.png",
+    "./invite3.png",
+    "./invite4.png",
+    "./invite5.png",
+
+    "./hug1.png",
+    "./hug2.png",
+    "./hug3.png",
+    "./hug4.png",
+    "./hug5.png",
+
+    "./break1.png",
+    "./break2.png",
+    "./break3.png",
+    "./break4.png",
+    "./break5.png",
+
+    "./kiss1.png",
+    "./kiss2.png",
+    "./kiss3.png",
+    "./kiss4.png",
+    "./kiss5.png"
+
+];
+
+
+imageFiles.forEach(source => {
+
+    const image =
+        new Image();
+
+    image.src =
+        source;
+
+});
+
+
+
+/* =========================
+   SHOW SCREEN
+========================= */
+
+function showScreen(number){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
+        screen
+        .classList
+        .remove("active");
+
+    });
+
+
+    document
+    .getElementById(
+        "screen" + number
+    )
+    .classList
+    .add("active");
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+
+/* =========================
+   SMOOTH FRAME PLAYER
+========================= */
+
+function createSmoothPlayer(
+    containerId,
+    frames,
+    options = {}
+){
+
+    const container =
+        document
+        .getElementById(
+            containerId
+        );
+
+
+    const layerA =
+        container
+        .querySelector(
+            ".frame-a"
+        );
+
+
+    const layerB =
+        container
+        .querySelector(
+            ".frame-b"
+        );
+
+
+    const frameDuration =
+        options.frameDuration
+        ||
+        800;
+
+
+    const transitionDuration =
+        options.transitionDuration
+        ||
+        380;
+
+
+    const shouldLoop =
+        options.loop
+        ??
+        true;
+
+
+    let index = 0;
+
+    let stopped =
+        false;
+
+    let timeoutId =
+        null;
+
+
+    let currentLayer =
+        layerA;
+
+
+    let nextLayer =
+        layerB;
+
+
+    currentLayer.src =
+        frames[0];
+
+
+    currentLayer
+    .classList
+    .add("visible");
+
+
+    nextLayer
+    .classList
+    .remove("visible");
+
+
+    function scheduleNext(){
+
+        if(stopped){
+            return;
+        }
+
+
+        timeoutId =
+            setTimeout(
+
+                switchFrame,
+
+                frameDuration
+
+            );
+
+    }
+
+
+    function switchFrame(){
+
+        if(stopped){
+            return;
+        }
+
+
+        let nextIndex =
+            index + 1;
+
+
+        if(
+            nextIndex
+            >=
+            frames.length
+        ){
+
+            if(
+                shouldLoop
+            ){
+
+                nextIndex =
+                    0;
+
+            }
+
+            else{
+
+                if(
+                    options.onFinish
+                ){
+
+                    options
+                    .onFinish();
+
+                }
+
+                return;
+
+            }
+
+        }
+
+
+        nextLayer.src =
+            frames[
+                nextIndex
+            ];
+
+
+        nextLayer
+        .classList
+        .add("visible");
+
+
+        currentLayer
+        .classList
+        .remove("visible");
+
+
+        setTimeout(
+
+            ()=>{
+
+
+                const oldCurrent =
+                    currentLayer;
+
+
+                currentLayer =
+                    nextLayer;
+
+
+                nextLayer =
+                    oldCurrent;
+
+
+                index =
+                    nextIndex;
+
+
+                scheduleNext();
+
+
+            },
+
+            transitionDuration
+
+        );
+
+    }
+
+
+    scheduleNext();
+
+
+    return{
+
+        stop(){
+
+            stopped =
+                true;
+
+
+            if(
+                timeoutId
+            ){
+
+                clearTimeout(
+                    timeoutId
+                );
+
+            }
+
+        }
+
+    };
+
+}
+
+
+
+/* =========================
+   PLAYER VARIABLES
+========================= */
+
+let invitePlayer =
+    null;
+
+let hugPlayer =
+    null;
+
+let breakPlayer =
+    null;
+
+let kissPlayer =
+    null;
+
+
+
+/* =========================
+   INVITE LOOP
+========================= */
+
+function startInviteAnimation(){
+
+    if(
+        invitePlayer
+    ){
+
+        invitePlayer.stop();
+
+    }
+
+
+    invitePlayer =
+        createSmoothPlayer(
+
+            "inviteAnimation",
+
+            [
+
+                "./invite1.png",
+                "./invite2.png",
+                "./invite3.png",
+                "./invite4.png",
+                "./invite5.png"
+
+            ],
+
+            {
+
+                frameDuration:780,
+
+                transitionDuration:360,
+
+                loop:true
+
+            }
+
+        );
+
+}
+
+
+startInviteAnimation();
+
+
+
+/* =========================
+   YES
+========================= */
+
+function acceptDate(){
+
+    if(
+        invitePlayer
+    ){
+
+        invitePlayer.stop();
+
+    }
+
+
+    showScreen(2);
+
+
+    const progress =
+        document
+        .getElementById(
+            "hugProgress"
+        );
+
+
+    progress.style.width =
+        "0%";
+
+
+    progress.style.transition =
+        "none";
+
+
+    setTimeout(
+
+        ()=>{
+
+
+            progress.style.transition =
+                "width 5s linear";
+
+
+            progress.style.width =
+                "100%";
+
+        },
+
+        80
+
+    );
+
+
+    if(
+        hugPlayer
+    ){
+
+        hugPlayer.stop();
+
+    }
+
+
+    hugPlayer =
+        createSmoothPlayer(
+
+            "hugAnimation",
+
+            [
+
+                "./hug1.png",
+                "./hug2.png",
+                "./hug3.png",
+                "./hug4.png",
+                "./hug5.png"
+
+            ],
+
+            {
+
+                frameDuration:720,
+
+                transitionDuration:350,
+
+                loop:true
+
+            }
+
+        );
+
+
+    setTimeout(
+
+        ()=>{
+
+
+            if(
+                hugPlayer
+            ){
+
+                hugPlayer.stop();
+
+            }
+
+
+            showScreen(3);
+
+        },
+
+        5000
+
+    );
+
+}
+
+
+
+/* =========================
+   NO BUTTON
+========================= */
+
+const noButton =
+    document
+    .getElementById(
+        "noButton"
+    );
+
+
+const buttonArea =
+    document
+    .getElementById(
+        "buttonArea"
+    );
+
+
+function runAway(){
+
+    if(
+        window.innerWidth
+        <=
+        768
+    ){
+
+        return;
+
+    }
+
+
+    const maxX =
+
+        Math.max(
+
+            0,
+
+            buttonArea.clientWidth
+            -
+            noButton.offsetWidth
+
+        );
+
+
+    const randomX =
+        Math.random()
+        *
+        maxX;
+
+
+    const randomY =
+        Math.random()
+        *
+        110
+        -
+        55;
+
+
+    noButton.style.position =
+        "absolute";
+
+
+    noButton.style.left =
+        randomX
+        +
+        "px";
+
+
+    noButton.style.top =
+        randomY
+        +
+        "px";
+
+}
+
+
+noButton
+.addEventListener(
+    "mouseenter",
+    runAway
+);
+
+
+noButton
+.addEventListener(
+    "click",
+    ()=>{
+
+        if(
+            window.innerWidth
+            <=
+            768
+        ){
+
+            noButton
+            .style
+            .opacity =
+                "0";
+
+
+            noButton
+            .style
+            .transform =
+                "scale(.4)";
+
+
+            noButton
+            .style
+            .pointerEvents =
+                "none";
+
+
+            setTimeout(
+
+                ()=>{
+
+
+                    noButton
+                    .style
+                    .opacity =
+                        "1";
+
+
+                    noButton
+                    .style
+                    .transform =
+                        "scale(1)";
+
+
+                    noButton
+                    .style
+                    .pointerEvents =
+                        "auto";
+
+                },
+
+                3000
+
+            );
+
+        }
+
+        else{
+
+            runAway();
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   DATE MIN
+========================= */
+
+const today =
+
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+
+document
+.getElementById(
+    "dateInput"
+)
+.min =
+    today;
+
+
+
+/* =========================
+   SAVE DATE
+========================= */
+
+function saveDateAndTime(){
+
+    const date =
+        document
+        .getElementById(
+            "dateInput"
+        )
+        .value;
+
+
+    const start =
+        document
+        .getElementById(
+            "startTime"
+        )
+        .value;
+
+
+    const end =
+        document
+        .getElementById(
+            "endTime"
+        )
+        .value;
+
+
+    if(
+        !date
+        ||
+        !start
+        ||
+        !end
+    ){
+
+        alert(
+            "Date, Start Time এবং End Time select করো 💕"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        end
+        <=
+        start
+    ){
+
+        alert(
+            "End Time অবশ্যই Start Time-এর পরে হবে 😄"
+        );
+
+        return;
+
+    }
+
+
+    dateData.date =
+        date;
+
+    dateData.start =
+        start;
+
+    dateData.end =
+        end;
+
+
+    showScreen(4);
+
+}
+
+
+
+/* =========================
+   FOOD
+========================= */
+
+const foodOptions =
+    document
+    .querySelectorAll(
+        ".food-option"
+    );
+
+
+const foodCount =
+    document
+    .getElementById(
+        "foodCount"
+    );
+
+
+foodOptions
+.forEach(
+
+    option => {
+
+        option
+        .addEventListener(
+
+            "click",
+
+            function(){
+
+
+                const foodName =
+                    this.dataset.name;
+
+
+                if(
+                    this
+                    .classList
+                    .contains(
+                        "selected"
+                    )
+                ){
+
+                    this
+                    .classList
+                    .remove(
+                        "selected"
+                    );
+
+
+                    dateData.foods =
+
+                        dateData.foods
+                        .filter(
+
+                            item =>
+                            item
+                            !==
+                            foodName
+
+                        );
+
+                }
+
+                else{
+
+                    if(
+                        dateData.foods
+                        .length
+                        >=
+                        2
+                    ){
+
+                        alert(
+                            "Maximum 2টা food select করতে পারবে 😄💕"
+                        );
+
+                        return;
+
+                    }
+
+
+                    this
+                    .classList
+                    .add(
+                        "selected"
+                    );
+
+
+                    dateData.foods
+                    .push(
+                        foodName
+                    );
+
+                }
+
+
+                foodCount
+                .textContent =
+
+                    dateData.foods
+                    .length;
+
+            }
+
+        );
+
+    }
+
+);
+
+
+function saveFood(){
+
+    if(
+        dateData.foods
+        .length
+        ===
+        0
+    ){
+
+        alert(
+            "কমপক্ষে 1টা food select করো 🍹"
+        );
+
+        return;
+
+    }
+
+
+    showScreen(5);
+
+}
+
+
+
+/* =========================
+   PLACE
+========================= */
+
+const placeOptions =
+    document
+    .querySelectorAll(
+        ".place-option"
+    );
+
+
+placeOptions
+.forEach(
+
+    option => {
+
+        option
+        .addEventListener(
+
+            "click",
+
+            function(){
+
+
+                placeOptions
+                .forEach(
+
+                    place => {
+
+                        place
+                        .classList
+                        .remove(
+                            "selected"
+                        );
+
+                    }
+
+                );
+
+
+                this
+                .classList
+                .add(
+                    "selected"
+                );
+
+
+                dateData.place =
+                    this.dataset.name;
+
+            }
+
+        );
+
+    }
+
+);
+
+
+function savePlace(){
+
+    if(
+        !dateData.place
+    ){
+
+        alert(
+            "একটা place select করো 📍💕"
+        );
+
+        return;
+
+    }
+
+
+    showScreen(6);
+
+}
+
+
+
+/* =========================
+   FEE
+========================= */
+
+const feeOptions =
+    document
+    .querySelectorAll(
+        ".fee-option"
+    );
+
+
+const customAmountBox =
+    document
+    .getElementById(
+        "customAmountBox"
+    );
+
+
+feeOptions
+.forEach(
+
+    option => {
+
+        option
+        .addEventListener(
+
+            "click",
+
+            function(){
+
+
+                feeOptions
+                .forEach(
+
+                    fee => {
+
+                        fee
+                        .classList
+                        .remove(
+                            "selected"
+                        );
+
+                    }
+
+                );
+
+
+                this
+                .classList
+                .add(
+                    "selected"
+                );
+
+
+                dateData.fee =
+                    this.dataset.fee;
+
+
+                if(
+                    dateData.fee
+                    ===
+                    "Custom"
+                ){
+
+                    customAmountBox
+                    .style
+                    .display =
+                        "block";
+
+                }
+
+                else{
+
+                    customAmountBox
+                    .style
+                    .display =
+                        "none";
+
+                }
+
+            }
+
+        );
+
+    }
+
+);
+
+
+
+/* =========================
+   HEARTBREAK
+========================= */
+
+function openHeartbreak(){
+
+    showScreen(7);
+
+
+    if(
+        breakPlayer
+    ){
+
+        breakPlayer.stop();
+
+    }
+
+
+    breakPlayer =
+        createSmoothPlayer(
+
+            "breakAnimation",
+
+            [
+
+                "./break1.png",
+                "./break2.png",
+                "./break3.png",
+                "./break4.png",
+                "./break5.png"
+
+            ],
+
+            {
+
+                frameDuration:700,
+
+                transitionDuration:330,
+
+                loop:true
+
+            }
+
+        );
+
+}
+
+
+
+/* =========================
+   TRY AGAIN
+========================= */
+
+function tryFeeAgain(){
+
+    if(
+        breakPlayer
+    ){
+
+        breakPlayer.stop();
+
+    }
+
+
+    dateData.fee =
+        "";
+
+
+    feeOptions
+    .forEach(
+
+        fee => {
+
+            fee
+            .classList
+            .remove(
+                "selected"
+            );
+
+        }
+
+    );
+
+
+    document
+    .getElementById(
+        "customAmount"
+    )
+    .value =
+        "";
+
+
+    customAmountBox
+    .style
+    .display =
+        "none";
+
+
+    showScreen(6);
+
+}
+
+
+
+/* =========================
+   SAVE FEE
+========================= */
+
+function saveFee(){
+
+    if(
+        !dateData.fee
+    ){
+
+        alert(
+            "একটা amount select করো 💕"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        dateData.fee
+        ===
+        "Custom"
+    ){
+
+        const custom =
+            document
+            .getElementById(
+                "customAmount"
+            )
+            .value;
+
+
+        if(
+            !custom
+            ||
+            Number(custom)
+            <=
+            0
+        ){
+
+            alert(
+                "Custom amount লিখো 😄"
+            );
+
+            return;
+
+        }
+
+
+        dateData.fee =
+            "৳"
+            +
+            custom;
+
+    }
+
+
+    showFinalConfirmation();
+
+}
+
+
+
+/* =========================
+   TIME FORMAT
+========================= */
+
+function formatTime(time){
+
+    let [
+        hour,
+        minute
+    ]
+    =
+    time.split(":");
+
+
+    hour =
+        Number(hour);
+
+
+    const period =
+
+        hour >= 12
+
+        ?
+
+        "PM"
+
+        :
+
+        "AM";
+
+
+    hour =
+
+        hour % 12
+
+        ||
+
+        12;
+
+
+    return (
+
+        hour
+        +
+        ":"
+        +
+        minute
+        +
+        " "
+        +
+        period
+
+    );
+
+}
+
+
+
+/* =========================
+   FINAL
+========================= */
+
+function showFinalConfirmation(){
+
+    const formattedDate =
+
+        new Date(
+
+            dateData.date
+            +
+            "T00:00:00"
+
+        )
+
+        .toLocaleDateString(
+
+            "en-GB",
+
+            {
+
+                day:"numeric",
+
+                month:"long",
+
+                year:"numeric"
+
+            }
+
+        );
+
+
+    document
+    .getElementById(
+        "resultDate"
+    )
+    .textContent =
+        formattedDate;
+
+
+    document
+    .getElementById(
+        "resultTime"
+    )
+    .textContent =
+
+        formatTime(
+            dateData.start
+        )
+
+        +
+
+        " - "
+
+        +
+
+        formatTime(
+            dateData.end
+        );
+
+
+    document
+    .getElementById(
+        "resultFood"
+    )
+    .textContent =
+
+        dateData.foods
+        .join(
+            " + "
+        );
+
+
+    document
+    .getElementById(
+        "resultPlace"
+    )
+    .textContent =
+        dateData.place;
+
+
+    document
+    .getElementById(
+        "resultFee"
+    )
+    .textContent =
+        dateData.fee;
+
+
+    showScreen(8);
+
+
+    const progress =
+        document
+        .getElementById(
+            "finalProgress"
+        );
+
+
+    progress.style.width =
+        "0%";
+
+
+    progress.style.transition =
+        "none";
+
+
+    setTimeout(
+
+        ()=>{
+
+
+            progress.style.transition =
+                "width 5s linear";
+
+
+            progress.style.width =
+                "100%";
+
+        },
+
+        80
+
+    );
+
+
+    setTimeout(
+
+        ()=>{
+
+
+            showScreen(9);
+
+            startKissAnimation();
+
+        },
+
+        5100
+
+    );
+
+}
+
+
+
+/* =========================
+   KISS
+========================= */
+
+function startKissAnimation(){
+
+    if(
+        kissPlayer
+    ){
+
+        kissPlayer.stop();
+
+    }
+
+
+    kissPlayer =
+        createSmoothPlayer(
+
+            "kissAnimation",
+
+            [
+
+                "./kiss1.png",
+                "./kiss2.png",
+                "./kiss3.png",
+                "./kiss4.png",
+                "./kiss5.png"
+
+            ],
+
+            {
+
+                frameDuration:900,
+
+                transitionDuration:430,
+
+                loop:true
+
+            }
+
+        );
+
+}
+
+
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+function makeFloatingHeart(){
+
+    const heart =
+        document
+        .createElement(
+            "div"
+        );
+
+
+    heart.className =
+        "floating-heart";
+
+
+    heart.textContent =
+
+        Math.random()
+        >
+        .5
+
+        ?
+
+        "♥"
+
+        :
+
+        "♡";
+
+
+    heart.style.left =
+
+        Math.random()
+        *
+        100
+        +
+        "%";
+
+
+    heart.style.fontSize =
+
+        (
+            15
+            +
+            Math.random()
+            *
+            30
+        )
+
+        +
+
+        "px";
+
+
+    heart.style.animationDuration =
+
+        (
+            8
+            +
+            Math.random()
+            *
+            9
+        )
+
+        +
+
+        "s";
+
+
+    document
+    .getElementById(
+        "backgroundHearts"
+    )
+    .appendChild(
+        heart
+    );
+
+
+    setTimeout(
+
+        ()=>{
+
+            heart.remove();
+
+        },
+
+        18000
+
+    );
+
+}
+
+
+setInterval(
+
+    makeFloatingHeart,
+
+    750
+
+);
+
+</script>
+
+
+</body>
+
+</html>
